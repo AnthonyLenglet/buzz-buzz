@@ -44,3 +44,7 @@ select {
 #buzzer:active::after {
   opacity: 1;
 }
+
+#clear {
+  margin-left: 10px;
+}
