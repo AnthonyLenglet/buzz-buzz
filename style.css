@@ -17,18 +17,23 @@ select {
   --button-depth: 30px;
   all: unset;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: clamp(100px, 90%, 750px);
   border-radius: 50%;
   aspect-ratio: 1 / 1;
-  background-color: #f00;
-  box-shadow: 0 var(--button-depth) 0 0 #d00;
-  transition: transform 0.05s, box-shadow 0.05s;
+  background-color: #d00;
 }
-#buzzer:active {
-  box-shadow: 0 0 0 0 #d00;
+
+#buzzer::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--button-depth));
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #f00;
+  transition: transform 0.05s;
+}
+#buzzer:active::before {
   transform: translateY(var(--button-depth));
 }
 
