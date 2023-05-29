@@ -1,25 +1,38 @@
 const buzzerSound = document.querySelector("#sound");
 const buzzerBtn = document.querySelector("#buzzer");
-const clearBtn = document.querySelector("#clear");
+const randomBtn = document.querySelector("#random");
+let currentBuzzSound;
 
-if (localStorage.getItem("buzzSound")) {
-  buzzerSound.value = localStorage.getItem("buzzSound");
+const storedBuzzSound = localStorage.getItem("buzzSound");
+if (storedBuzzSound) {
+  setCurrentBuzz(storedBuzzSound);
 } else {
-  const defaultSound = buzzerSound.children.item(Math.floor(Math.random() * buzzerSound.children.length));
-  buzzerSound.value = defaultSound.value;
+  const randomSound = buzzerSound.children.item(
+    Math.floor(Math.random() * buzzerSound.children.length)
+  );
+  setCurrentBuzz(randomSound.value);
 }
 
 buzzerSound.addEventListener("change", (event) => {
   localStorage.setItem("buzzSound", event.target.value);
+  setCurrentBuzz(event.target.value);
+});
+
+randomBtn.addEventListener("mousedown", () => {
+  const randomSound = buzzerSound.children.item(
+    Math.floor(Math.random() * buzzerSound.children.length)
+  );
+  localStorage.setItem("buzzSound", randomSound.value);
+  setCurrentBuzz(randomSound.value);
 });
 
 buzzerBtn.addEventListener("mousedown", () => {
-  const buzzSound = new Audio(`./buzzes/${buzzerSound.value}.mp3`);
-  buzzSound.play();
+  currentBuzzSound.currentTime = 0;
+  currentBuzzSound.play();
 });
 
-clearBtn.addEventListener("mousedown", () => {
-  const defaultSound = buzzerSound.children.item(Math.floor(Math.random() * buzzerSound.children.length));
-  buzzerSound.value = defaultSound.value;
-  localStorage.setItem("buzzSound", defaultSound.value);
-});
+function setCurrentBuzz(buzz) {
+  buzzerSound.value = buzz;
+  currentBuzzSound = new Audio(`./buzzes/${buzz}.mp3`);
+  currentBuzzSound.load();
+}
