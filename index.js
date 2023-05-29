@@ -34,6 +34,10 @@ buzzerBtn.addEventListener("mousedown", () => {
 function setCurrentBuzz(buzz) {
   buzzerSound.value = buzz;
   currentBuzzSound = new Audio(`./buzzes/${buzz}.mp3`);
-  currentBuzzSound.preload = "metadata";
+
+  // Fix pour le delay sous safari
+  const audioContext = new AudioContext();
+  // ^ NE ME DEMANDE PAS POURQUOI
+
   currentBuzzSound.load();
 }
