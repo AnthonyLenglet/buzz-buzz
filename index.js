@@ -34,5 +34,6 @@ buzzerBtn.addEventListener("mousedown", () => {
 function setCurrentBuzz(buzz) {
   buzzerSound.value = buzz;
   currentBuzzSound = new Audio(`./buzzes/${buzz}.mp3`);
+  currentBuzzSound.preload = "metadata";
   currentBuzzSound.load();
 }
