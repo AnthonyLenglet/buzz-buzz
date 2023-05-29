@@ -18,6 +18,7 @@ select {
   all: unset;
   position: relative;
   width: clamp(100px, 90%, 750px);
+  margin-top: var(--button-depth);
   border-radius: 50%;
   aspect-ratio: 1 / 1;
   background-color: #d00;
